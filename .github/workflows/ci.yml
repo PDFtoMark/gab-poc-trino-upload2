@@ -1,0 +1,16 @@
+name: ci
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir -p out
+          printf '%s\n' '<testsuite name="legit" tests="1"><testcase name="legit-test" classname="x" time="0.01"/></testsuite>' > out/TEST-legit.xml
+      - uses: actions/upload-artifact@v7
+        with:
+          name: test report legit
+          path: out/TEST-*.xml
